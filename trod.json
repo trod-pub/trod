@@ -1,0 +1,38 @@
+[
+    {
+        "field":"虚拟机",
+        "stack":"JVM",
+        "risk":"CodeCache 配置不合理",
+        "severity":"中",
+        "description":"JVM 编译优化后的代码会存储在 CodeCache 中，当 CodeCache 不足或者设置不合理时，会导致热代码退优化或重复编译，最终导致性能下降，影响业务运行",
+        "verify":"检测 CodeCache 是否小于 240M，小于则告警",
+        "solution":"使用默认配置或者通过 -XX:ReservedCodeCacheSize 设置合理的值，不建议小于默认值。目前 jdk8 默认值为240M，之前版本有 32M、48M 的配置，已经不适用现代的业务系统",
+        "reference":"",
+        "committer":"PerfMa",
+        "contact":"perfma.com"
+    },
+    {
+        "field":"虚拟机",
+        "stack":"JVM",
+        "risk":"Metaspace 用量预警",
+        "severity":"中",
+        "description":"Metaspace 保存了 Class 元数据信息，当大小设置不足或者加载的 Class 过多时会触发 Full GC，严重影响程序性能",
+        "verify":"检测 Metaspace 当前大小是否超过 MaxMetaspaceSize 参数配置的 80%，如果超过则告警",
+        "solution":"当 Metaspace 大小到达 MaxMetaspaceSize 参数配置大小时，会触发 Full GC，MaxMetaspaceSize 参数设置过小可能会导致频繁 Full GC 或者 OOM，当检测到内存使用率过大时，请判断配置是否合理，一般建议配置为 512M，默认不设置则不限制大小。如果有异常占用过大情况有如下解决方案：1. 内存 dump 后分析 Class 数量，判断是否有同类型 Class 多次加载的情况。2. 启用诊断参数 -XX:+TraceClassLoading 协助判读类加载情况",
+        "reference":"",
+        "committer":"PerfMa",
+        "contact":"perfma.com"
+    },
+    {
+        "field":"虚拟机",
+        "stack":"JVM",
+        "risk":"OOM 自动 Dump 未开启",
+        "severity":"低",
+        "description":"业务系统发生 OOM 时，需尽可能自动生成 heap dump 文件。不配置相应参数，在发生 OOM 时不会自动生成 heap dump 文件，故障现场信息无法保留，为后续分析定位问题根因带来不便",
+        "verify":"检测业务系统的 JVM 启动参数中是否配置 HeapDumpOnOutOfMemoryError 参数，如果未配置则告警",
+        "solution":"添加 JVM 参数 -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=${目录}，若是容器化部署，建议将生成路径映射到宿主机目录，避免容器自动销毁时 heap dump 文件也一并被销毁",
+        "reference":"",
+        "committer":"PerfMa",
+        "contact":"perfma.com"
+    }
+]
