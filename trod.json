@@ -34,5 +34,17 @@
         "reference":"",
         "committer":"PerfMa",
         "contact":"perfma.com"
+    },
+    {
+        "field":"虚拟机",
+        "stack":"JVM",
+        "risk":"Xmx Xms配置不一致",
+        "severity":"提示",
+        "description":"Xms 为进程初始内存，当内存不足时会扩展最大至 Xmx 大小，当 GC 过后，可能会释放收缩内存，每一次扩展和收缩行为的发生都会与操作系统进行交互，从而影响性能",
+        "verify":"检测Xmx 与 Xms 配置是否一致，如果不一致则告警",
+        "solution":"为了避免频繁扩容和 GC 释放堆内存造成的系统开销/压力，建议将 Xmx，Xms 配置相同的大小",
+        "reference":"",
+        "committer":"PerfMa",
+        "contact":"perfma.com"
     }
 ]
