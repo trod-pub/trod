@@ -46,5 +46,17 @@
         "reference":"",
         "committer":"PerfMa",
         "contact":"perfma.com"
+    },
+    {
+        "field":"虚拟机",
+        "stack":"JVM",
+        "risk":"JVM启动参数添加位置不正确",
+        "severity":"低",
+        "description":"javaagent 或 agentpath 配置位置不正确，会导致 JVM 参数失效",
+        "verify":"检测 javaagent 或 agentpath 参数位置是否在主启动类之前，如果不在则告警",
+        "solution":"将 javaagent 或 agentpath 参数移动至主启动类之前",
+        "reference":"",
+        "committer":"PerfMa",
+        "contact":"perfma.com"
     }
 ]
