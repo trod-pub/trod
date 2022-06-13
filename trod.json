@@ -58,5 +58,17 @@
         "reference":"",
         "committer":"PerfMa",
         "contact":"perfma.com"
+    },
+    {
+        "field":"虚拟机",
+        "stack":"JVM",
+        "risk":"生成GC日志参数未配置",
+        "severity":"低",
+        "description":"生成 GC 日志文件的启动参数未配置，将导致无法方便的查看 GC 执行详情与晋升详情，不利于出现问题时的排查定位",
+        "verify":"检测 PrintGCDetails、PrintGCDateStamps、Xloggc 参数是否配置，如果未配置则告警",
+        "solution":"JDK8下可设置必备参数，打印基本信息： -XX:+PrintGCDetails -XX:+PrintGCDateStamps -Xloggc:${path}/gc.log 可选参数，用于分析SWT信息： -XX:+PrintGCApplicationStoppedTime -XX:+PrintSafepointStatistics -XX:PrintSafepointStatisticsCount=1",
+        "reference":"",
+        "committer":"PerfMa",
+        "contact":"perfma.com"
     }
 ]
