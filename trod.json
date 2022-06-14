@@ -82,5 +82,17 @@
         "reference":"",
         "committer":"PerfMa",
         "contact":"perfma.com"
+    },
+    {
+        "field":"虚拟机",
+        "stack":"JVM",
+        "risk":"配置了无效的 JVM 参数",
+        "severity":"低",
+        "description":"已失效的参数设置可能会造成误解，以为已经设置了相关参数的，例如 jdk8 中使用了失效的 PermSize 和 MaxPermSize",
+        "verify":"检测 PermSize、MaxPermSize 等失效参数是否配置，如果配置则告警",
+        "solution":"建议移除已失效的 JVM 参数",
+        "reference":"",
+        "committer":"PerfMa",
+        "contact":"perfma.com"
     }
 ]
