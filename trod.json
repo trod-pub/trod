@@ -26,7 +26,7 @@
     {
         "field":"虚拟机",
         "stack":"JVM",
-        "risk":"OOM 自动 Dump 未开启",
+        "risk":"OOM 时自动 Dump 配置未开启",
         "severity":"低",
         "description":"业务系统发生 OOM 时，需尽可能自动生成 heap dump 文件。不配置相应参数，在发生 OOM 时不会自动生成 heap dump 文件，故障现场信息无法保留，为后续分析定位问题根因带来不便",
         "verify":"检测业务系统的 JVM 启动参数中是否配置 HeapDumpOnOutOfMemoryError 参数，如果未配置则告警",
@@ -38,8 +38,8 @@
     {
         "field":"虚拟机",
         "stack":"JVM",
-        "risk":"Xmx Xms配置不一致",
-        "severity":"提示",
+        "risk":"Xmx Xms 配置不一致",
+        "severity":"低",
         "description":"Xms 为进程初始内存，当内存不足时会扩展最大至 Xmx 大小，当 GC 过后，可能会释放收缩内存，每一次扩展和收缩行为的发生都会与操作系统进行交互，从而影响性能",
         "verify":"检测Xmx 与 Xms 配置是否一致，如果不一致则告警",
         "solution":"为了避免频繁扩容和 GC 释放堆内存造成的系统开销/压力，建议将 Xmx，Xms 配置相同的大小",
@@ -50,7 +50,7 @@
     {
         "field":"虚拟机",
         "stack":"JVM",
-        "risk":"JVM启动参数添加位置不正确",
+        "risk":"JVM 启动参数添加位置不正确",
         "severity":"低",
         "description":"javaagent 或 agentpath 配置位置不正确，会导致 JVM 参数失效",
         "verify":"检测 javaagent 或 agentpath 参数位置是否在主启动类之前，如果不在则告警",
@@ -62,11 +62,23 @@
     {
         "field":"虚拟机",
         "stack":"JVM",
-        "risk":"生成GC日志参数未配置",
+        "risk":"生成 GC 日志参数未配置",
         "severity":"低",
         "description":"生成 GC 日志文件的启动参数未配置，将导致无法方便的查看 GC 执行详情与晋升详情，不利于出现问题时的排查定位",
         "verify":"检测 PrintGCDetails、PrintGCDateStamps、Xloggc 参数是否配置，如果未配置则告警",
         "solution":"JDK8下可设置必备参数，打印基本信息： -XX:+PrintGCDetails -XX:+PrintGCDateStamps -Xloggc:${path}/gc.log 可选参数，用于分析SWT信息： -XX:+PrintGCApplicationStoppedTime -XX:+PrintSafepointStatistics -XX:PrintSafepointStatisticsCount=1",
+        "reference":"",
+        "committer":"PerfMa",
+        "contact":"perfma.com"
+    },
+    {
+        "field":"虚拟机",
+        "stack":"JVM",
+        "risk":"DisableExplicitGC 配置未关闭",
+        "severity":"低",
+        "description":"三方框架中可能存在主动调用 System.gc 以便 DirectMemory 不够时可以主动回收直接内存，如果禁用此功能可能直接 OOM，导致更严重问题",
+        "verify":"检测 DisableExplicitGC 参数是否配置，如果配置则告警",
+        "solution":"建议保持默认配置不启用 DisableExplicitGC，不干扰 System.gc 的行为，如果发现 GC 日志中存在比较多的 Full GC 并且 GC 触发原因是 System.gc，则建议排查业务代码中是否存在主动调用的情况",
         "reference":"",
         "committer":"PerfMa",
         "contact":"perfma.com"
