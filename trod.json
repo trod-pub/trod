@@ -7,7 +7,7 @@
         "description":"JVM 编译优化后的代码会存储在 CodeCache 中，当 CodeCache 不足或者设置不合理时，会导致热代码退优化或重复编译，最终导致性能下降，影响业务运行",
         "verify":"检测 CodeCache 是否小于 240M，小于则告警",
         "solution":"使用默认配置或者通过 -XX:ReservedCodeCacheSize 设置合理的值，不建议小于默认值。目前 jdk8 默认值为240M，之前版本有 32M、48M 的配置，已经不适用现代的业务系统",
-        "reference":["https://heapdump.cn/article/304430",https://thinkhejie.github.io/2016/05/05/JVM%E7%B3%BB%E5%88%97_06/","https://bugs.openjdk.org/browse/JDK-8051955"],
+        "reference":["https://heapdump.cn/article/304430","https://thinkhejie.github.io/2016/05/05/JVM%E7%B3%BB%E5%88%97_06/","https://bugs.openjdk.org/browse/JDK-8051955"],
         "committer":"PerfMa",
         "contact":"perfma.com"
     },
