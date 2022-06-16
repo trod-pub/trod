@@ -8,8 +8,8 @@
         "verify":"检测 CodeCache 是否小于 240M，小于则告警",
         "solution":"使用默认配置或者通过 -XX:ReservedCodeCacheSize 设置合理的值，不建议小于默认值。目前 jdk8 默认值为240M，之前版本有 32M、48M 的配置，已经不适用现代的业务系统",
         "reference":["https://heapdump.cn/article/304430","https://thinkhejie.github.io/2016/05/05/JVM%E7%B3%BB%E5%88%97_06/","https://bugs.openjdk.org/browse/JDK-8051955"],
-        "committer":"PerfMa",
-        "contact":"perfma.com"
+        "committer":"HeapDump社区",
+        "contact":"https://heapdump.cn"
     },
     {
         "field":"虚拟机",
@@ -20,8 +20,8 @@
         "verify":"检测 Metaspace 当前大小是否超过 MaxMetaspaceSize 参数配置的 80%，如果超过则告警",
         "solution":"当 Metaspace 大小到达 MaxMetaspaceSize 参数配置大小时，会触发 Full GC，MaxMetaspaceSize 参数设置过小可能会导致频繁 Full GC 或者 OOM，当检测到内存使用率过大时，请判断配置是否合理，一般建议配置为 512M，默认不设置则不限制大小。如果有异常占用过大情况有如下解决方案：1. 内存 dump 后分析 Class 数量，判断是否有同类型 Class 多次加载的情况。2. 启用诊断参数 -XX:+TraceClassLoading 协助判读类加载情况",
         "reference":["https://heapdump.cn/article/2152817","https://heapdump.cn/article/1700576","https://heapdump.cn/article/210111"],
-        "committer":"PerfMa",
-        "contact":"perfma.com"
+        "committer":"HeapDump社区",
+        "contact":"https://heapdump.cn"
     },
     {
         "field":"虚拟机",
@@ -32,8 +32,8 @@
         "verify":"检测业务系统的 JVM 启动参数中是否配置 HeapDumpOnOutOfMemoryError 及 HeapDumpPath 参数，如果未配置则告警",
         "solution":"添加 JVM 参数 -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=${目录}，若是容器化部署，建议将生成路径映射到宿主机目录，避免容器自动销毁时 heap dump 文件也一并被销毁",
         "reference":["https://blog.csdn.net/a718515028/article/details/86703186","https://bbs.huaweicloud.com/blogs/330073"],
-        "committer":"PerfMa",
-        "contact":"perfma.com"
+        "committer":"HeapDump社区",
+        "contact":"https://heapdump.cn"
     },
     {
         "field":"虚拟机",
@@ -44,8 +44,8 @@
         "verify":"检测Xmx 与 Xms 配置是否一致，如果不一致则告警",
         "solution":"为了避免频繁扩容和 GC 释放堆内存造成的系统开销/压力，建议将 Xmx，Xms 配置相同的大小",
         "reference":["https://blog.csdn.net/wo541075754/article/details/108462684","https://support.huaweicloud.com/tuningtip-kunpenggrf/kunpengtuning_12_0063.html"],
-        "committer":"PerfMa",
-        "contact":"perfma.com"
+        "committer":"HeapDump社区",
+        "contact":"https://heapdump.cn"
     },
     {
         "field":"虚拟机",
@@ -56,8 +56,8 @@
         "verify":"检测 javaagent 或 agentpath 参数位置是否在主启动类之前，如果不在则告警",
         "solution":"将 javaagent 或 agentpath 参数移动至主启动类之前",
         "reference":["https://blog.csdn.net/woshiyeguiren/article/details/79867320","https://heapdump.cn/article/437822"],
-        "committer":"PerfMa",
-        "contact":"perfma.com"
+        "committer":"HeapDump社区",
+        "contact":"https://heapdump.cn"
     },
     {
         "field":"虚拟机",
@@ -68,8 +68,8 @@
         "verify":"检测 PrintGCDetails、PrintGCDateStamps、Xloggc 参数是否配置，如果未配置则告警",
         "solution":"JDK8下可设置必备参数，打印基本信息： -XX:+PrintGCDetails -XX:+PrintGCDateStamps -Xloggc:${path}/gc.log 可选参数，用于分析SWT信息： -XX:+PrintGCApplicationStoppedTime -XX:+PrintSafepointStatistics -XX:PrintSafepointStatisticsCount=1",
         "reference":["https://segmentfault.com/a/1190000039806436"],
-        "committer":"PerfMa",
-        "contact":"perfma.com"
+        "committer":"HeapDump社区",
+        "contact":"https://heapdump.cn"
     },
     {
         "field":"虚拟机",
@@ -80,8 +80,8 @@
         "verify":"检测 DisableExplicitGC 参数是否配置，如果配置则告警",
         "solution":"建议保持默认配置不启用 DisableExplicitGC，不干扰 System.gc 的行为，如果发现 GC 日志中存在比较多的 Full GC 并且 GC 触发原因是 System.gc，则建议排查业务代码中是否存在主动调用的情况",
         "reference":["https://blog.csdn.net/bingxuesiyang/article/details/105527220"],
-        "committer":"PerfMa",
-        "contact":"perfma.com"
+        "committer":"HeapDump社区",
+        "contact":"https://heapdump.cn"
     },
     {
         "field":"虚拟机",
@@ -92,7 +92,7 @@
         "verify":"检测 PermSize、MaxPermSize 等失效参数是否配置，如果配置则告警",
         "solution":"建议移除已失效的 JVM 参数",
         "reference":["https://blog.csdn.net/f80407515/article/details/116858289"],
-        "committer":"PerfMa",
-        "contact":"perfma.com"
+        "committer":"HeapDump社区",
+        "contact":"https://heapdump.cn"
     }
 ]
