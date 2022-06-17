@@ -94,5 +94,17 @@
         "reference":["https://blog.csdn.net/f80407515/article/details/116858289"],
         "committer":"HeapDump性能社区",
         "contact":"https://heapdump.cn"
+    },
+    {
+        "field":"虚拟机",
+        "stack":"JDK",
+        "risk":"ConcurrentHashMap computeIfAbsent 递归调用导致死循环",
+        "severity":"高",
+        "description":"如 JDK-8062841 BUG描述，递归调用 ConcurrentHashMap.computeIfAbsent 会造成线程 CPU 使用率100%问题",
+        "verify":"检测 JDK 版本，如果是 8 则告警",
+        "solution":"避免使用递归的方式创建 ConcurrentHashMap 对象或将 JDK 版本升级到 9",
+        "reference":["https://heapdump.cn/article/2061109","https://blog.csdn.net/weixin_42083242/article/details/85223512","https://www.jianshu.com/p/59bd27e137e1","https://bugs.openjdk.org/browse/JDK-8062841"],
+        "committer":"HeapDump性能社区",
+        "contact":"https://heapdump.cn"
     }
 ]
