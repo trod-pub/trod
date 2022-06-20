@@ -126,7 +126,7 @@
         "severity":"提示",
         "description":"系统端口范围配置不足时,在瞬时短连接过多情况下可能导致客户端请求服务端出现java.net.NoRouteToHostException: Cannot assign requested address错误，无可用端口号,导致无法和服务端建立连接",
         "verify":"检测系统端口配置情况，如果可用端口号范围 < 20000 则告警",
-        "solution":"可根据实际情况更改服务器端口可用范围：类似如下命令 echo "15000 64000" > /proc/sys/net/ipv4/ip_local_port_range",
+        "solution":"可根据实际情况更改服务器端口可用范围：类似如下命令 echo \"15000 64000\" > /proc/sys/net/ipv4/ip_local_port_range",
         "reference":["https://www.cnblogs.com/solohac/p/4154180.html","https://blog.csdn.net/ichen820/article/details/105687422"],
         "committer":"HeapDump性能社区",
         "contact":"https://heapdump.cn"
