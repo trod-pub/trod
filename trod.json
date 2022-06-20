@@ -178,5 +178,17 @@
         "reference":["https://heapdump.cn/article/1675496","https://mysql-rtdocs.readthedocs.io/en/latest/%E9%85%8D%E7%BD%AE%E5%8F%82%E6%95%B0/connection%E5%A4%B1%E6%95%88-testOnBorrow/"],
         "committer":"HeapDump性能社区",
         "contact":"https://heapdump.cn"
+    },
+    {
+        "field":"中间件",
+        "stack":"com.alibaba.druid",
+        "risk":"initialSize minIdle 未配置",
+        "severity":"低",
+        "description":"当项目第一次进行增，删，改，查的时候，连接池会初始化，这个时候会根据 initialSize 参数初始化数据库连接放入连接池中，如果未配置或配置为0，则无法正常运行；minIdle 用于指定连接池中的最小空闲连接数，设置这个参数可以应对突发流量，如果没有设置空闲连接，当有多个请求同时调用数据库，但是连接池中并没有可用连接，这时就必须创建连接，创建连接是一个非常耗时的操作，有可能会导致请求超时。",
+        "verify":"判断 initialSize minIdle 是否为 0，是则告警",
+        "solution":"根据实际情况，配置一个合理的数值",
+        "reference":["https://www.jianshu.com/p/f2d24a6ca146","https://blog.csdn.net/zzy7075/article/details/121633424"],
+        "committer":"HeapDump性能社区",
+        "contact":"https://heapdump.cn"
     }
 ]
