@@ -99,11 +99,23 @@
         "field":"虚拟机",
         "stack":"JDK",
         "risk":"ConcurrentHashMap computeIfAbsent 递归调用导致死循环",
-        "severity":"高",
+        "severity":"中",
         "description":"如 JDK-8062841 BUG描述，递归调用 ConcurrentHashMap.computeIfAbsent 会造成线程 CPU 使用率100%问题",
         "verify":"检测 JDK 版本，如果是 8 则告警",
         "solution":"避免使用递归的方式创建 ConcurrentHashMap 对象或将 JDK 版本升级到 9",
         "reference":["https://heapdump.cn/article/2061109","https://blog.csdn.net/weixin_42083242/article/details/85223512","https://www.jianshu.com/p/59bd27e137e1","https://bugs.openjdk.org/browse/JDK-8062841"],
+        "committer":"HeapDump性能社区",
+        "contact":"https://heapdump.cn"
+    },
+    {
+        "field":"虚拟机",
+        "stack":"JDK",
+        "risk":"HttpURLConnection setFixedLengthStreamingMode 性能问题",
+        "severity":"中",
+        "description":"如 JDK-8072586 BUG描述，当使用HttpURLConnection.setFixedLengthStreamingMode 设置 fixedContentLength 属性后，getOutputStream() 获取请求返回流性能相比 JDK 7u25 下降了6倍",
+        "verify":"检测 JDK 版本，如果是 7u40及以上版本 则告警",
+        "solution":"在该问题被Fix之前，先避免使用 setFixedLengthStreamingMode 方式，可以多使用 setChunkedStreamingMode 替代",
+        "reference":["https://bugs.openjdk.org/browse/JDK-8072586","https://github.com/jimma/jdk7u40-httpurlconnection-issue"],
         "committer":"HeapDump性能社区",
         "contact":"https://heapdump.cn"
     }
