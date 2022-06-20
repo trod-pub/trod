@@ -118,5 +118,41 @@
         "reference":["https://bugs.openjdk.org/browse/JDK-8072586","https://github.com/jimma/jdk7u40-httpurlconnection-issue"],
         "committer":"HeapDump性能社区",
         "contact":"https://heapdump.cn"
+    },
+    {
+        "field":"操作系统",
+        "stack":"系统配置",
+        "risk":"服务器端口可用范围过小",
+        "severity":"提示",
+        "description":"系统端口范围配置不足时,在瞬时短连接过多情况下可能导致客户端请求服务端出现java.net.NoRouteToHostException: Cannot assign requested address错误，无可用端口号,导致无法和服务端建立连接",
+        "verify":"检测系统端口配置情况，如果可用端口号范围 < 20000 则告警",
+        "solution":"可根据实际情况更改服务器端口可用范围：类似如下命令 echo "15000 64000" > /proc/sys/net/ipv4/ip_local_port_range",
+        "reference":["https://www.cnblogs.com/solohac/p/4154180.html","https://blog.csdn.net/ichen820/article/details/105687422"],
+        "committer":"HeapDump性能社区",
+        "contact":"https://heapdump.cn"
+    },
+    {
+        "field":"操作系统",
+        "stack":"系统配置",
+        "risk":"未开启 core dump 配置",
+        "severity":"提示",
+        "description":"未开启 core dump 配置，会导致无法保留完整的内存信息，不利于后续故障定位",
+        "verify":"使用 ulimit -c 查看 core dump 是否打开，如果为 0 则告警",
+        "solution":"建议打开可通过ulimit -a查看core file size大小，通过ulimit -c设置合理数值或者unlimited。（提示：core dump文件会占用较大的硬盘容量，请及时清理）",
+        "reference":["https://blog.csdn.net/wjc19911118/article/details/105253055","https://www.cnblogs.com/byeyear/p/10500054.html"],
+        "committer":"HeapDump性能社区",
+        "contact":"https://heapdump.cn"
+    },
+    {
+        "field":"操作系统",
+        "stack":"系统配置",
+        "risk":"不应开启 swap 空间配置",
+        "severity":"提示",
+        "description":"当系统内存不足时，会触发内核将一部分进程的内存 swap 到磁盘，如果 java 进程的内存被 swap 出去，会导致该进程 GC 扫描时间变长，从而影响系统性能",
+        "verify":"判断 swap 开启状态，如果开启，则告警",
+        "solution":"建议关闭 swap 空间，提高系统整体性能",
+        "reference":["https://heapdump.cn/article/2493856","https://wsgzao.github.io/post/swap/"],
+        "committer":"HeapDump性能社区",
+        "contact":"https://heapdump.cn"
     }
 ]
