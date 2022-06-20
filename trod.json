@@ -154,5 +154,17 @@
         "reference":["https://heapdump.cn/article/2493856","https://wsgzao.github.io/post/swap/"],
         "committer":"HeapDump性能社区",
         "contact":"https://heapdump.cn"
+    },
+    {
+        "field":"中间件",
+        "stack":"com.alibaba.druid",
+        "risk":"removeAbandoned logAbandoned 开启后会触发爬栈",
+        "severity":"中",
+        "description":"removeAbandoned（当removeAbandoned=true之后，可以在内置监控界面datasource.html中的查看ActiveConnection StackTrace属性的，可以看到未关闭连接的具体堆栈信息，从而方便查出哪些连接泄漏了）、logAbandoned（当druid强制回收连接后，是否将stack trace 记录到日志中）这两项配置会触发爬栈和更多的日志输出从而影响性能，都不建议在生产环境开启",
+        "verify":"判断 removeAbandoned logAbandoned 是否为 true，是则告警",
+        "solution":"设置 removeAbandoned=false，logAbandoned=false",
+        "reference":["https://github.com/alibaba/druid/wiki/%E8%BF%9E%E6%8E%A5%E6%B3%84%E6%BC%8F%E7%9B%91%E6%B5%8B"],
+        "committer":"HeapDump性能社区",
+        "contact":"https://heapdump.cn"
     }
 ]
