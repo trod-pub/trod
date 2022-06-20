@@ -166,5 +166,17 @@
         "reference":["https://github.com/alibaba/druid/wiki/%E8%BF%9E%E6%8E%A5%E6%B3%84%E6%BC%8F%E7%9B%91%E6%B5%8B"],
         "committer":"HeapDump性能社区",
         "contact":"https://heapdump.cn"
+    },
+    {
+        "field":"中间件",
+        "stack":"com.alibaba.druid",
+        "risk":"testOnBorrow testOnReturn 开启后导致性能骤降",
+        "severity":"中",
+        "description":"testOnBorrow testOnReturn 开启后，都会执行 validationQuery 检测连接是否有效。testOnBorrow 和 testOnReturn 在生产环境一般是不开启的，主要是性能考虑。如果考虑失效连接的处理，可以通过 testWhileIdle 来保障，如果获取到了不可用的数据库连接，一般由应用处理异常。",
+        "verify":"判断 testOnBorrow testOnReturn 是否为 true，是则告警",
+        "solution":"设置 testOnBorrow=false，testOnReturn=false",
+        "reference":["https://heapdump.cn/article/1675496","https://mysql-rtdocs.readthedocs.io/en/latest/%E9%85%8D%E7%BD%AE%E5%8F%82%E6%95%B0/connection%E5%A4%B1%E6%95%88-testOnBorrow/"],
+        "committer":"HeapDump性能社区",
+        "contact":"https://heapdump.cn"
     }
 ]
