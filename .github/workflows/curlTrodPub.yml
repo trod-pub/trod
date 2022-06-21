@@ -16,9 +16,14 @@ jobs:
   Curl-Trod-Pub-Actions:
     runs-on: ubuntu-latest
     steps:
+      -name: "curlTrodPub"
+      env:
+        payload: '{"title": "${{ github.sha }}","body": "${{ github.workflow }}"}'
+        secret: ${{ secrets.SYNC_DATA_SECRET }}
       - run: |
+          sha256=$(expr ${{ payload }} | openssl sha256 -hmac ${{ secret }})
           curl -X POST http://trod-app.trod-pub.20234050.cn-hangzhou.fc.devsapp.net/syncdata \
           -H 'X-Fc-Invocation-Type: Async' \
-          -H 'authorization: ${{ secrets.GITHUB_TOKEN }}' \
+          -H 'x-hub-signature-256: sha256=$sha256' \
           -H 'content-type: application/json' \
-          -d '{"title": "${{ github.sha }}","body": "${{ github.workflow }}"}'
+          -d ${{ payload }}
