@@ -19,7 +19,7 @@ jobs:
       env:
         payload: '{"title": "${{ github.sha }}","body": "${{ github.workflow }}"}'
         secret: ${{ secrets.SYNC_DATA_SECRET }}
-      - run: |
+      run: |
           sha256=$(expr ${{ payload }} | openssl sha256 -hmac ${{ secret }})
           curl -X POST http://trod-app.trod-pub.20234050.cn-hangzhou.fc.devsapp.net/syncdata \
           -H 'X-Fc-Invocation-Type: Async' \
