@@ -190,5 +190,17 @@
         "reference":["https://www.jianshu.com/p/f2d24a6ca146","https://blog.csdn.net/zzy7075/article/details/121633424"],
         "committer":"HeapDump性能社区",
         "contact":"https://heapdump.cn"
+    },
+    {
+        "field":"中间件",
+        "stack":"ch.qos.logback",
+        "risk":"未开启异步写日志模式",
+        "severity":"中",
+        "description":"当系统日志较多或写入性能较差可能会阻塞业务代码的运行，配置日志异步写可以提高写入效率，减少对业务的影响",
+        "verify":"判断是否配置 ch.qos.logback.classic.AsyncAppender，未配置则告警",
+        "solution":"配置 logback appender class 为 ch.qos.logback.classic.AsyncAppender",
+        "reference":["https://www.jianshu.com/p/cc4253ed721f","https://leokongwq.github.io/2019/12/14/logback-best-practise.html","https://www.cnblogs.com/duanxz/p/3461832.html","https://heapdump.cn/article/1828318"],
+        "committer":"HeapDump性能社区",
+        "contact":"https://heapdump.cn"
     }
 ]
