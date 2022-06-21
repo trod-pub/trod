@@ -235,7 +235,7 @@
         "description":"当队列的剩余容量小于 discardingThreshold 阈值并且当前日志 level 为 TRACE, DEBUG or INFO，则丢弃这些日志，而当 discardingThreshold 为 0 时，则不会丢弃 TRACE, DEBUG or INFO level的日志。尤其是日志级别为 debug 时，日志量很大，如果磁盘 IO 性能不高，异步日志线程将来不及输出，队列排满，业务线程又不能丢弃日志，就会导致阻塞",
         "verify":"判断 discardingThreshold 属性配置是否为 0，如果是则告警",
         "solution":"1.discardingThreshold 设置大于 0 的值，当队列满时允许丢弃TRACE, DEBUG，INFO级别的日志；2.配合设置 neverBlock 为 true，如果队列满则直接返回，而不是被挂起当前线程；",
-        "reference":["https://heapdump.cn/article/2690748"],
+        "reference":["https://heapdump.cn/article/2690748","https://www.sohu.com/a/207100497_100013542"],
         "committer":"HeapDump性能社区",
         "contact":"https://heapdump.cn"
     }
