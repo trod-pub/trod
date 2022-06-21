@@ -194,7 +194,7 @@
     {
         "field":"中间件",
         "stack":"ch.qos.logback",
-        "risk":"未开启异步写日志模式",
+        "risk":"未开启 AsyncAppender 异步写日志模式",
         "severity":"中",
         "description":"当系统日志较多或写入性能较差可能会阻塞业务代码的运行，配置日志异步写可以提高写入效率，减少对业务的影响",
         "verify":"判断是否配置 ch.qos.logback.classic.AsyncAppender，未配置则告警",
