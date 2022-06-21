@@ -206,7 +206,7 @@
     {
         "field":"中间件",
         "stack":"ch.qos.logback",
-        "risk":"pattern配置不合理导致爬栈",
+        "risk":"pattern 配置不合理导致爬栈",
         "severity":"中",
         "description":"日志框架对堆栈信息的存在并发控制，并且比较消耗性能，当 log4j 或 logback 等日志组件的 pattern 中配置了文件名、类名、方法名、行号的时候，会导致爬栈操作，严重影响性能",
         "verify":"判断 ch.qos.logback.classic.Logger pattern() 中是否包含文件名、类名、方法名、行号等会导致爬栈的参数，同时判断 ch.qos.logback.classic.AsyncAppender.includeCallerData 是否为 true，如果是则告警",
