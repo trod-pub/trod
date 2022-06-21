@@ -22,6 +22,6 @@ jobs:
           -H 'authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' \
           -H 'content-type: application/json' \
           -d '{
-            "title": "Automated sync for commit: ${{ github.sha }}",
-            "body": "This was automatically called by the GitHub Action workflow ${{ github.workflow }}”
+            "title": "${{ github.sha }}",
+            "body": "${{ github.workflow }}”
             }'
