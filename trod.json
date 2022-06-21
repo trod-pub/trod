@@ -202,5 +202,29 @@
         "reference":["https://www.jianshu.com/p/cc4253ed721f","https://leokongwq.github.io/2019/12/14/logback-best-practise.html","https://www.cnblogs.com/duanxz/p/3461832.html","https://heapdump.cn/article/1828318"],
         "committer":"HeapDump性能社区",
         "contact":"https://heapdump.cn"
+    },
+    {
+        "field":"中间件",
+        "stack":"ch.qos.logback",
+        "risk":"pattern配置不合理导致爬栈",
+        "severity":"中",
+        "description":"日志框架对堆栈信息的存在并发控制，并且比较消耗性能，当 log4j 或 logback 等日志组件的 pattern 中配置了文件名、类名、方法名、行号的时候，会导致爬栈操作，严重影响性能",
+        "verify":"判断 ch.qos.logback.classic.Logger pattern() 中是否包含文件名、类名、方法名、行号等会导致爬栈的参数，同时判断 ch.qos.logback.classic.AsyncAppender.includeCallerData 是否为 true，如果是则告警",
+        "solution":"建议移除以下会导致爬栈的参数：Logback && Log4j 相关配置：%F %file 打印文件名；%C %class 打印类名；%M %method 打印方法名；%L %line 打印代码行号；AsyncAppender的includeCallerData=true；Log4j配置：%l %location 打印location",
+        "reference":["https://heapdump.cn/article/2699465"],
+        "committer":"HeapDump性能社区",
+        "contact":"https://heapdump.cn"
+    },
+    {
+        "field":"中间件",
+        "stack":"ch.qos.logback",
+        "risk":"开启 packagingData 导致频繁类加载",
+        "severity":"中",
+        "description":"packagingData 参数是在栈信息的基础上，额外增加了 jar 包的名称和版本信息，该配置参数虽然有用，但是十分昂贵，每个类都会触发类加载操作",
+        "verify":"判断 LoggerContext 的 packagingDataEnabled 属性 是否为 true，如果是则告警",
+        "solution":"建议在生产环境关闭 packagingData",
+        "reference":["https://heapdump.cn/article/3876464"],
+        "committer":"HeapDump性能社区",
+        "contact":"https://heapdump.cn"
     }
 ]
