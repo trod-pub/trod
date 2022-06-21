@@ -16,7 +16,6 @@ jobs:
   Curl-Trod-Pub-Actions:
     runs-on: ubuntu-latest
     steps:
-      -name: "curlTrodPub"
       env:
         payload: '{"title": "${{ github.sha }}","body": "${{ github.workflow }}"}'
         secret: ${{ secrets.SYNC_DATA_SECRET }}
