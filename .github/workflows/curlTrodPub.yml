@@ -21,7 +21,4 @@ jobs:
           -H 'X-Fc-Invocation-Type: Async' \
           -H 'authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' \
           -H 'content-type: application/json' \
-          -d '{
-            "title": "${{ github.sha }}",
-            "body": "${{ github.workflow }}”
-            }'
+          -d '{"title": "${{ github.sha }}","body": "${{ github.workflow }}"}'
