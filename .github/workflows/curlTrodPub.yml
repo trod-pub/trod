@@ -1,0 +1,19 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CURL trod.pub
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the "main" branch
+  push:
+    branches:
+      - main
+    paths:
+      - 'trod.json'
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  Curl-Trod-Pub-Actions:
+    runs-on: ubuntu-latest
+    steps:
+      - run: curl http://trod-app.trod-pub.20234050.cn-hangzhou.fc.devsapp.net/syncdata
