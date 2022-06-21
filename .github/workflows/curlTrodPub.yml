@@ -17,12 +17,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: |
-          curl --request POST \
-          --url http://trod-app.trod-pub.20234050.cn-hangzhou.fc.devsapp.net/syncdata \
-          --header 'X-Fc-Invocation-Type: Async' \
-          --header 'authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' \
-          --header 'content-type: application/json' \
-          --data '{
+          curl -X POST http://trod-app.trod-pub.20234050.cn-hangzhou.fc.devsapp.net/syncdata \
+          -H 'X-Fc-Invocation-Type: Async' \
+          -H 'authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' \
+          -H 'content-type: application/json' \
+          -d '{
             "title": "Automated sync for commit: ${{ github.sha }}",
             "body": "This was automatically called by the GitHub Action workflow ${{ github.workflow }}”
             }'
