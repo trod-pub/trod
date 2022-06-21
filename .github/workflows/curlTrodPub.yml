@@ -16,4 +16,4 @@ jobs:
   Curl-Trod-Pub-Actions:
     runs-on: ubuntu-latest
     steps:
-      - run: curl -X POST http://trod-app.trod-pub.20234050.cn-hangzhou.fc.devsapp.net/syncdata
+      - run: curl -H "X-Fc-Invocation-Type:Async" -X POST http://trod-app.trod-pub.20234050.cn-hangzhou.fc.devsapp.net/syncdata
