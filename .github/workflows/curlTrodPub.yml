@@ -20,7 +20,7 @@ jobs:
     steps:
       - name: syncdata
         run: |
-          payload="{\"head_commit\":{\"id\":\"${{ github.sha }}\",\"timestamp\":\"$(date +'%Y-%m-%d %H:%M:%S')\"}}"
+          payload="{'head_commit':{'id':'${{ github.sha }}','timestamp':'$(date +'%Y-%m-%d %H:%M:%S')'}}"
           key=$(echo -n $payload | openssl sha256 -hmac ${{ env.secret }})
           curl -X POST http://trod-app.trod-pub.20234050.cn-hangzhou.fc.devsapp.net/syncdata \
           -H "X-Fc-Invocation-Type: Async" \
