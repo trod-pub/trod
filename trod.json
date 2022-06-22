@@ -310,5 +310,17 @@
         "reference":["https://heapdump.cn/article/2495315","https://imroc.cc/kubernetes/troubleshooting/network/slow-network-traffic.html"],
         "committer":"HeapDump性能社区",
         "contact":"https://heapdump.cn"
+    },
+    {
+        "field":"操作系统",
+        "stack":"系统配置",
+        "risk":"文件句柄数太小导致文件读写及网络异常",
+        "severity":"中",
+        "description":"linux 下文件句柄是有限制的，默认并不会太高，一般都是1024，在高并发情况下，非常容易造成写文件很慢或写文件失败，当文件句柄耗尽时，将导致业务系统服务不可用",
+        "verify":"判断 /proc/sys/fs/file-max 是否小于内存的50%，/proc/sys/fs/nr_open 是否小于内存的10%，如果是则告警",
+        "solution":"将系统允许的最大值调整为内存的50%，如： echo 933632 > /proc/sys/fs/file-max；将单个进程可分配的最大值调整为内存的10%，如：echo 186726 > /proc/sys/fs/nr_open",
+        "reference":["https://codeantenna.com/a/b6ZVAP57rz","https://cloud.tencent.com/developer/article/1771292","https://www.cnblogs.com/wenquanli/p/9714149.html"],
+        "committer":"HeapDump性能社区",
+        "contact":"https://heapdump.cn"
     }
 ]
