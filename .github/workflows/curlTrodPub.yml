@@ -18,7 +18,7 @@ jobs:
     env:
         commit: '{"commit":"${{ github.sha }}"}'
         secret: "${{ secrets.SYNC_DATA_SECRET }}"
-        payload: ${{ toJSON(jobs.Curl-Trod-Pub-Actions.env.commit) }}
+        payload: "${{ toJSON($commit) }}"
     steps:
       - run: |
           key=$(printf ${{ env.payload }} | openssl sha256 -hmac ${{ env.secret }})
