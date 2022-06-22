@@ -16,16 +16,14 @@ jobs:
   Curl-Trod-Pub-Actions:
     runs-on: ubuntu-latest
     env:
-        commit: '{"commit":"${{ github.sha }}"}'
         secret: "${{ secrets.SYNC_DATA_SECRET }}"
     steps:
       - name: syncdata
-        env:
-          payload: ${{ toJSON(env.commit) }}
         run: |
-          key=$(echo -n ${{ env.payload }} | openssl sha256 -hmac ${{ env.secret }})
+          payload="{\"head_commit\":{\"id\":\"${{ github.sha }}\",\"timestamp\":\"$(date +'%Y-%m-%d %H:%M:%S')\"}}"
+          key=$(echo -n $payload | openssl sha256 -hmac ${{ env.secret }})
           curl -X POST http://trod-app.trod-pub.20234050.cn-hangzhou.fc.devsapp.net/syncdata \
           -H "X-Fc-Invocation-Type: Async" \
           -H "x-hub-signature-256: ${key}" \
           -H "content-type: application/json" \
-          -d ${{ env.payload }}
+          -d $payload
