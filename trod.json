@@ -286,5 +286,17 @@
         "reference":["https://heapdump.cn/article/2322738","https://blog.csdn.net/cheng_fangang/article/details/52127642"],
         "committer":"HeapDump性能社区",
         "contact":"https://heapdump.cn"
+    },
+    {
+        "field":"操作系统",
+        "stack":"网络",
+        "risk":"nf_conntrack_max 配置不合理导致网络丢包",
+        "severity":"高",
+        "description":"如果 nf_conntrack_max 配置太小，TCP 连接很快就被塞满，一旦塞满了就会随机的 drop 包。就会出现  nf_conntrack: table full, dropping packet. 报错，表现为该服务器网络丢包情况非常厉害。",
+        "verify":"判断 nf_conntrack_max 和 nf_conntrack_buckets 两个配置的值是否符合官方推荐的优化值，如果不符合则告警",
+        "solution":"按官方给到的 nf_conntrack_max 公式进行优化配置并更新到 /etc/sysctl.conf；nf_conntrack_max 官方推荐值：nf_conntrack_max = RAMSIZE (in bytes) / 16384 / (ARCH / 32) ；nf_conntrack_buckets 官方推荐值：nf_conntrack_buckets = nf_conntrack_max/4；ARCH 指的是机器 CPU 的架构，取值范围是：64 或 32；RAMSIZE 为机器内存大小",
+        "reference":["https://jusene.github.io/2020/10/29/conntrack/","http://www.yangxg.com/blog/id/1555415760"],
+        "committer":"HeapDump性能社区",
+        "contact":"https://heapdump.cn"
     }
 ]
