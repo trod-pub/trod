@@ -286,17 +286,5 @@
         "reference":["https://heapdump.cn/article/2322738","https://blog.csdn.net/cheng_fangang/article/details/52127642"],
         "committer":"HeapDump性能社区",
         "contact":"https://heapdump.cn"
-    },
-    {
-        "field":"操作系统",
-        "stack":"网络",
-        "risk":"tcp_tw_recycle tcp_timestamps 同时开启导致被动连接被拒绝",
-        "severity":"高",
-        "description":"服务器配置 tcp_timestamps == 1 && tcp_tw_recycle == 1 的情况下，会导致在 NAT 情况下被动拒绝连接的问题；对于服务端来说，同一个 SRC IP，可能会是 NAT 后面的很多机器，这些机器的 timestamp 递增性无法保证，服务器会拒绝非递增请求连接；",
-        "verify":"判断 tcp_tw_recycle 以及 tcp_timestamps 值是否都为 1，如果是则告警",
-        "solution":"将 tcp_tw_recycle 设置为 0 或者将 tcp_timestamps 设置为 0",
-        "reference":["https://heapdump.cn/article/2322738","https://blog.csdn.net/cheng_fangang/article/details/52127642"],
-        "committer":"HeapDump性能社区",
-        "contact":"https://heapdump.cn"
     }
 ]
