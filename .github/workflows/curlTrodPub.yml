@@ -18,10 +18,10 @@ jobs:
     env:
         commit: '{"commit":"${{ github.sha }}"}'
         secret: "${{ secrets.SYNC_DATA_SECRET }}"
-        payload: ${{ toJSON(commit) }}
+        payload: ${{ toJSON(env.commit) }}
     steps:
       - run: |
-          key=$(expr ${{ env.payload }} | openssl sha256 -hmac ${{ env.secret }})
+          key=$(printf ${{ env.payload }} | openssl sha256 -hmac ${{ env.secret }})
           curl -X POST http://trod-app.trod-pub.20234050.cn-hangzhou.fc.devsapp.net/syncdata \
           -H "X-Fc-Invocation-Type: Async" \
           -H "x-hub-signature-256: sha256=${key}" \
