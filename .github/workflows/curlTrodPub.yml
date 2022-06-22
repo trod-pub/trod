@@ -16,7 +16,7 @@ jobs:
   Curl-Trod-Pub-Actions:
     runs-on: ubuntu-latest
     env:
-        payload: ${{ toJSON(format('{"commit":"{0}"}', github.sha}')) }}
+        payload: ${{ toJSON(format('{"commit":"{0}"}', github.sha)) }}
         secret: "${{ secrets.SYNC_DATA_SECRET }}"
     steps:
       - run: |
