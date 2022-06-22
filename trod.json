@@ -262,5 +262,17 @@
         "reference":["https://blog.csdn.net/weixin_41101173/article/details/79679300","https://heapdump.cn/article/2697019"],
         "committer":"HeapDump性能社区",
         "contact":"https://heapdump.cn"
+    },
+    {
+        "field":"Java应用",
+        "stack":"网络",
+        "risk":"getHostName getLocalHost 性能缓慢",
+        "severity":"高",
+        "description":"根据 javadocs 对 InetAddress#getHostName() 的介绍，调用此方法将执行反向主机名查找。 因此，该方法调用的性能取决于 JVM 和目标主机的域名服务器之间的网络及技术栈的性能。当配置的 DNS 服务器与目标 InetAddress 之间网络状况不佳就会产生巨大的延时",
+        "verify":"判断 java.net.InetAddress.getHostName() 及 getLocalHost() 两个方法的调用是否传入参数，如果未传入则告警",
+        "solution":"修改 /etc/hosts，配置要查询匹配的域名、IP",
+        "reference":["http://chenmutian.com/2019/04/23/inetadress-slowly/"],
+        "committer":"HeapDump性能社区",
+        "contact":"https://heapdump.cn"
     }
 ]
