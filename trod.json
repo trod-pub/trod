@@ -250,5 +250,17 @@
         "reference":["https://juejin.cn/post/6844903554264596487"],
         "committer":"HeapDump性能社区",
         "contact":"https://heapdump.cn"
+    },
+    {
+        "field":"Java应用",
+        "stack":"并发场景",
+        "risk":"线程阻塞",
+        "severity":"高",
+        "description":"严重的线程阻塞，会对系统响应时间和TPS造成巨大影响",
+        "verify":"判断状态为 Block、Waiting、Timed_Waiting 等非空闲等锁线程数（或比例）是否达到预警阈值，如果是则告警",
+        "solution":"建议根据扫描结果，进一步判断对应的线程是否存在资源竞争",
+        "reference":["https://blog.csdn.net/weixin_41101173/article/details/79679300","https://heapdump.cn/article/2697019"],
+        "committer":"HeapDump性能社区",
+        "contact":"https://heapdump.cn"
     }
 ]
