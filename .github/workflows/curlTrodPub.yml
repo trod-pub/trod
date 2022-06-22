@@ -20,7 +20,7 @@ jobs:
     steps:
       - name: syncdata
         run: |
-          mtime=$(date +'%Y-%m-%d %H:%M:%S')
+          mtime=$(date +'%Y-%m-%dT%H:%M:%S')
           payload="{\"head_commit\":{\"id\":\"${{ github.sha }}\",\"timestamp\":\"$mtime\"}}"
           key=$(echo -n $payload | openssl sha256 -hmac ${{ env.secret }})
           curl -X POST http://trod-app.trod-pub.20234050.cn-hangzhou.fc.devsapp.net/syncdata \
