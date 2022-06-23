@@ -332,8 +332,8 @@
         "risk":"NewSize MaxNewSize 过小可能导致频繁GC",
         "severity":"中",
         "description":"由于 NewSize 默认值较小，以 Linux 为例，JDK6 NewSize 默认值为 1310720（1.25M），JDK7 NewSize 默认值为 1310720（1.25M），JDK8 NewSize 默认值为 20971520（20M），如果未对 NewSize 配置合适的值，在遇到高并发或海量数据处理的情况下可能导致频繁GC",
-        "verify":"判断 NewSize 与 MaxNewSize 的值是否相同，是否小于内存的 30%，如果是则告警",
-        "solution":"建议将 NewSize 和 MaxNewSize 设置不低于内存的 30%",
+        "verify":"判断 NewSize 与 MaxNewSize 的值是否不一致，且小于内存的 30%，如果是则告警",
+        "solution":"建议将 NewSize 和 MaxNewSize 设置为一个不低于内存 30% 的相同的值",
         "reference":["https://heapdump.cn/topic/NewSize","https://heapdump.cn/article/663009","https://heapdump.cn/article/211838","https://heapdump.cn/article/297253"],
         "committer":"HeapDump性能社区",
         "contact":"https://heapdump.cn"
