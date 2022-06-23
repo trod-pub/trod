@@ -5,7 +5,7 @@
     {
         "field":"虚拟机",
         "stack":"JVM",
-        "risk":"CodeCache 配置不合理",
+        "risk":"CodeCache 过小可能导致服务性能变慢",
         "severity":"中",
         "description":"JVM 编译优化后的代码会存储在 CodeCache 中，当 CodeCache 不足或者设置不合理时，会导致热代码退优化或重复编译，最终导致性能下降，影响业务运行",
         "verify":"检测 CodeCache 是否小于 240M，小于则告警",
@@ -17,7 +17,7 @@
     {
         "field":"虚拟机",
         "stack":"JVM",
-        "risk":"Metaspace 用量预警",
+        "risk":"Metaspace 空间不足可能触发 Full GC",
         "severity":"中",
         "description":"Metaspace 保存了 Class 元数据信息，当大小设置不足或者加载的 Class 过多时会触发 Full GC，严重影响程序性能",
         "verify":"检测 Metaspace 当前大小是否超过 MaxMetaspaceSize 参数配置的 80%，如果超过则告警",
@@ -29,7 +29,7 @@
     {
         "field":"虚拟机",
         "stack":"JVM",
-        "risk":"OOM 时自动 Dump 配置未开启",
+        "risk":"OOM 自动 Dump 配置未开启",
         "severity":"提示",
         "description":"业务系统发生 OOM 时，需尽可能自动生成 heap dump 文件。不配置相应参数，在发生 OOM 时不会自动生成 heap dump 文件，故障现场信息无法保留，为后续分析定位问题根因带来不便",
         "verify":"检测业务系统的 JVM 启动参数中是否配置 HeapDumpOnOutOfMemoryError 及 HeapDumpPath 参数，如果未配置则告警",
@@ -41,7 +41,7 @@
     {
         "field":"虚拟机",
         "stack":"JVM",
-        "risk":"Xmx Xms 配置不一致",
+        "risk":"Xmx Xms 配置不一致影响系统性能",
         "severity":"低",
         "description":"Xms 为进程初始内存，当内存不足时会扩展最大至 Xmx 大小，当 GC 过后，可能会释放收缩内存，每一次扩展和收缩行为的发生都会与操作系统进行交互，从而影响性能",
         "verify":"检测Xmx 与 Xms 配置是否一致，如果不一致则告警",
@@ -53,7 +53,7 @@
     {
         "field":"虚拟机",
         "stack":"JVM",
-        "risk":"JVM 启动参数添加位置不正确",
+        "risk":"JVM 启动参数添加位置不正确导致配置不生效",
         "severity":"提示",
         "description":"javaagent 或 agentpath 配置位置不正确，会导致 JVM 参数失效",
         "verify":"检测 javaagent 或 agentpath 参数位置是否在主启动类之前，如果不在则告警",
@@ -77,9 +77,9 @@
     {
         "field":"虚拟机",
         "stack":"JVM",
-        "risk":"DisableExplicitGC 配置未关闭",
+        "risk":"DisableExplicitGC 配置未关闭可能导致堆外内存泄漏",
         "severity":"低",
-        "description":"三方框架中可能存在主动调用 System.gc 以便 DirectMemory 不够时可以主动回收直接内存，如果禁用掉就会导致堆外内存使用一直增长，最终可能造成内存泄露。",
+        "description":"三方框架中可能存在主动调用 System.gc 以便 DirectMemory 不够时可以主动回收直接内存，如果禁用掉就会导致堆外内存使用一直增长，最终可能造成内存泄漏。",
         "verify":"检测 DisableExplicitGC 参数是否配置，如果配置则告警",
         "solution":"建议保持默认配置不启用 DisableExplicitGC，不干扰 System.gc 的行为，如果发现 GC 日志中存在比较多的 Full GC 并且 GC 触发原因是 System.gc，则建议排查业务代码中是否存在主动调用的情况",
         "reference":["https://blog.csdn.net/bingxuesiyang/article/details/105527220"],
@@ -101,7 +101,7 @@
     {
         "field":"虚拟机",
         "stack":"JDK",
-        "risk":"ConcurrentHashMap computeIfAbsent 递归调用导致死循环",
+        "risk":"ConcurrentHashMap computeIfAbsent 递归调用会导致死循环",
         "severity":"中",
         "description":"如 JDK-8062841 BUG描述，递归调用 ConcurrentHashMap.computeIfAbsent 会造成线程 CPU 使用率100%问题",
         "verify":"检测 JDK 版本，如果是 8 则告警",
@@ -113,7 +113,7 @@
     {
         "field":"虚拟机",
         "stack":"JDK",
-        "risk":"HttpURLConnection setFixedLengthStreamingMode 性能问题",
+        "risk":"HttpURLConnection setFixedLengthStreamingMode 6倍性能问题",
         "severity":"中",
         "description":"如 JDK-8072586 BUG描述，当使用HttpURLConnection.setFixedLengthStreamingMode 设置 fixedContentLength 属性后，getOutputStream() 获取请求返回流性能相比 JDK 7u25 下降了6倍",
         "verify":"检测 JDK 版本，如果是 7u40及以上版本 则告警",
@@ -125,7 +125,7 @@
     {
         "field":"操作系统",
         "stack":"系统配置",
-        "risk":"服务器端口可用范围过小",
+        "risk":"服务器端口可用范围过小可能导致无法建立连接",
         "severity":"提示",
         "description":"系统端口范围配置不足时,在瞬时短连接过多情况下可能导致客户端请求服务端出现java.net.NoRouteToHostException: Cannot assign requested address错误，无可用端口号,导致无法和服务端建立连接",
         "verify":"检测系统端口配置情况，如果可用端口号范围 < 20000 则告警",
@@ -137,7 +137,7 @@
     {
         "field":"操作系统",
         "stack":"系统配置",
-        "risk":"未开启 core dump 配置",
+        "risk":"未开启 core dump 配置不利于后续故障定位",
         "severity":"提示",
         "description":"未开启 core dump 配置，会导致无法保留完整的内存信息，不利于后续故障定位",
         "verify":"使用 ulimit -c 查看 core dump 是否打开，如果为 0 则告警",
@@ -149,7 +149,7 @@
     {
         "field":"操作系统",
         "stack":"系统配置",
-        "risk":"不应开启 swap 空间配置",
+        "risk":"开启 swap 配置可能导致 GC 扫描时间变长",
         "severity":"提示",
         "description":"当系统内存不足时，会触发内核将一部分进程的内存 swap 到磁盘，如果 java 进程的内存被 swap 出去，会导致该进程 GC 扫描时间变长，从而影响系统性能",
         "verify":"判断 swap 开启状态，如果开启，则告警",
@@ -185,7 +185,7 @@
     {
         "field":"中间件",
         "stack":"com.alibaba.druid",
-        "risk":"initialSize minIdle 未配置",
+        "risk":"initialSize minIdle 未配置可能导致请求超时",
         "severity":"低",
         "description":"当项目第一次进行增，删，改，查的时候，连接池会初始化，这个时候会根据 initialSize 参数初始化数据库连接放入连接池中，如果未配置或配置为0，则无法正常运行；minIdle 用于指定连接池中的最小空闲连接数，设置这个参数可以应对突发流量，如果没有设置空闲连接，当有多个请求同时调用数据库，但是连接池中并没有可用连接，这时就必须创建连接，创建连接是一个非常耗时的操作，有可能会导致请求超时。",
         "verify":"判断 initialSize minIdle 是否为 0，是则告警",
@@ -197,7 +197,7 @@
     {
         "field":"中间件",
         "stack":"ch.qos.logback",
-        "risk":"未开启 AsyncAppender 异步写日志模式",
+        "risk":"未开启 AsyncAppender 异步写日志模式可能导致业务代码阻塞",
         "severity":"中",
         "description":"当系统日志较多或写入性能较差可能会阻塞业务代码的运行，配置日志异步写可以提高写入效率，减少对业务的影响",
         "verify":"判断是否配置 ch.qos.logback.classic.AsyncAppender，未配置则告警",
@@ -209,7 +209,7 @@
     {
         "field":"中间件",
         "stack":"ch.qos.logback",
-        "risk":"pattern 配置不合理导致爬栈",
+        "risk":"pattern 配置不合理可能导致爬栈",
         "severity":"中",
         "description":"日志框架对堆栈信息的存在并发控制，并且比较消耗性能，当 log4j 或 logback 等日志组件的 pattern 中配置了文件名、类名、方法名、行号的时候，会导致爬栈操作，严重影响性能",
         "verify":"判断 ch.qos.logback.classic.Logger pattern() 中是否包含文件名、类名、方法名、行号等会导致爬栈的参数，同时判断 ch.qos.logback.classic.AsyncAppender.includeCallerData 是否为 true，如果是则告警",
@@ -233,7 +233,7 @@
     {
         "field":"中间件",
         "stack":"ch.qos.logback",
-        "risk":"discardingThreshold 配置为0导致线程阻塞",
+        "risk":"discardingThreshold 配置为0可能导致线程阻塞",
         "severity":"中",
         "description":"当队列的剩余容量小于 discardingThreshold 阈值并且当前日志 level 为 TRACE, DEBUG, INFO时，则丢弃这些日志，而当 discardingThreshold 为 0 时，则不会丢弃 TRACE, DEBUG or INFO level的日志。尤其是日志级别为 debug 时，日志量很大，如果磁盘 IO 性能不高，异步日志线程将来不及输出，队列排满，业务线程又不能丢弃日志，就会导致阻塞",
         "verify":"判断 discardingThreshold 属性配置是否为 0，如果是则告警",
@@ -245,7 +245,7 @@
     {
         "field":"Java应用",
         "stack":"并发场景",
-        "risk":"HashMap 多线程并发死循环",
+        "risk":"HashMap 多线程并发可能导致死循环",
         "severity":"中",
         "description":"在并发的情况下发生扩容时，可能会产生循环链表，在执行 Hash.get 方法的时候，会触发死循环，导致 CPU 100%",
         "verify":"检测是否有线程占用了较高的 CPU 且线程栈顶运行的是否为 Hash.get 函数，如果是则告警",
@@ -257,10 +257,10 @@
     {
         "field":"Java应用",
         "stack":"并发场景",
-        "risk":"线程阻塞",
+        "risk":"存在严重的线程阻塞",
         "severity":"高",
         "description":"严重的线程阻塞，会对系统响应时间和TPS造成巨大影响",
-        "verify":"判断状态为 Block、Waiting、Timed_Waiting 等非空闲等锁线程数（或比例）是否达到预警阈值，如果是则告警",
+        "verify":"判断状态为 Block、Waiting、Timed_Waiting 等非空闲等锁线程数（或比例，如：80%）是否达到预警阈值，如果是则告警",
         "solution":"建议根据扫描结果，进一步判断对应的线程是否存在资源竞争",
         "reference":["https://blog.csdn.net/weixin_41101173/article/details/79679300","https://heapdump.cn/article/2697019"],
         "committer":"HeapDump性能社区",
@@ -269,7 +269,7 @@
     {
         "field":"Java应用",
         "stack":"网络",
-        "risk":"getHostName getLocalHost 性能缓慢",
+        "risk":"getHostName getLocalHost 严重性能问题",
         "severity":"高",
         "description":"根据 javadocs 对 InetAddress#getHostName() 的介绍，调用此方法将执行反向主机名查找。 因此，该方法调用的性能取决于 JVM 和目标主机的域名服务器之间的网络及技术栈的性能。当配置的 DNS 服务器与目标 InetAddress 之间网络状况不佳就会产生巨大的延时",
         "verify":"判断 java.net.InetAddress.getHostName() 及 getLocalHost() 两个方法的调用是否传入参数，如果未传入则告警",
