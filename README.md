@@ -6,7 +6,7 @@
 #### 如何贡献？
 1. 方式一：Fork 此项目，在 trod.json 文件中按照已有格式要求，添加您要贡献的风险项数据，确认无误后提交一个 PR；
 2. 方式二：直接在当前项目中创建一个 issue，issue 标题注明：添加 XXX 风险项，之后按 trod.json 文件已有格式要求，填写您要贡献的风险项数据作为 issue 的内容，提交issue；
-3. 方式三：成为TROD项目合作伙伴，非常愿意看到您宣传 TROD 项目、基于 TROD 项目实现、为 TROD 项目提供工具、平台、资源支持；
+3. 方式三：[成为TROD项目合作伙伴](https://github.com/trod-pub/trod/issues/1)，非常愿意看到您宣传 TROD 项目、基于 TROD 项目实现、为 TROD 项目提供工具、平台、资源支持；
 
 #### Tips
 1. 建议先打开 https://trod.pub 搜索风险项，确认没有您要添加的风险项再继续
