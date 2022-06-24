@@ -337,5 +337,17 @@
         "reference":["https://heapdump.cn/topic/NewSize","https://heapdump.cn/article/663009","https://heapdump.cn/article/211838","https://heapdump.cn/article/297253"],
         "committer":"HeapDump性能社区",
         "contact":"https://heapdump.cn"
+    },
+    {
+        "field":"虚拟机",
+        "stack":"JVM",
+        "risk":"Xss 配置不当可能导致应用异常响应变慢",
+        "severity":"中",
+        "description":"Xss 参数用于设置栈内存的大小，设置的栈的大小决定了函数调用的最大深度。如果设置的过大，会导致每个线程占用的内存过大，从而导致内存消耗过快，其它线程排队等待，系统响应变慢；如果设置的过小，则可能因为函数调用的深度大于设置的 Xss 大小，将会抛 java.lang.StackOverflowError 异常，导致应用运行异常；",
+        "verify":"判断 Xss 配置是否在 1 ~ 2 m 之间，如果不是则告警",
+        "solution":"在高并发场景下建议将 Xss 设置为 1 ~ 2 m 之间的值，默认为 1m",
+        "reference":["https://icode.best/i/05379346286682","https://www.cnblogs.com/xujanus/p/11551013.html","http://www.4k8k.xyz/article/chuan4874/100612455"],
+        "committer":"dh20156",
+        "contact":"https://trod.pub"
     }
 ]
