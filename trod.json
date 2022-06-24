@@ -82,7 +82,7 @@
         "description":"三方框架中可能存在主动调用 System.gc 以便 DirectMemory 不够时可以主动回收直接内存，如果禁用掉就会导致堆外内存使用一直增长，最终可能造成内存泄漏。",
         "verify":"检测 DisableExplicitGC 参数是否配置，如果配置则告警",
         "solution":"建议保持默认配置不启用 DisableExplicitGC，不干扰 System.gc 的行为，如果发现 GC 日志中存在比较多的 Full GC 并且 GC 触发原因是 System.gc，则建议排查业务代码中是否存在主动调用的情况",
-        "reference":["https://blog.csdn.net/bingxuesiyang/article/details/105527220"],
+        "reference":["https://blog.csdn.net/bingxuesiyang/article/details/105527220","https://cloud.tencent.com/developer/article/1940331"],
         "committer":"HeapDump性能社区",
         "contact":"https://heapdump.cn"
     },
